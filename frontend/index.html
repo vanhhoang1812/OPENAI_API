@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatGPT Clone</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
+  <body>
+    <div class="sidebar" id="sidebar">
+      <button class="new-chat-btn" id="newChatBtn">
+        <span>
+          <i class="fi fi-rr-multiple"></i>
+        </span>
+        <span>Cuộc trò chuyện mới</span>
+      </button>
+
+      <div class="chat-history" id="chatHistory">
+        <!-- Chat history will be populated here -->
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="header">
+        <div style="display: flex; align-items: center; gap: 6px">
+          <button class="menu-toggle" id="menuToggle">
+            <!-- <i class="fi fi-sr-menu-burger"></i> -->
+            <i class="fi fi-rr-menu-burger"></i>
+          </button>
+          <div class="header-title">VanhGPT</div>
+        </div>
+
+        <div class="user-menu">
+          <button class="user-avatar-btn" id="userAvatarBtn">V</button>
+          <div class="user-dropdown" id="userDropdown">
+            <div class="dropdown-header">
+              <div class="user-email">
+                <svg
+                  class="user-email-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  />
+                </svg>
+                Vanh102
+              </div>
+            </div>
+
+            <div class="dropdown-item" onclick="handleMenuClick('upgrade')">
+              <svg
+                class="dropdown-item-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                />
+              </svg>
+              Nâng cấp gói
+            </div>
+
+            <div class="dropdown-item" onclick="handleMenuClick('personalize')">
+              <svg
+                class="dropdown-item-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+              Cá nhân hóa
+            </div>
+
+            <div class="dropdown-item" onclick="handleMenuClick('settings')">
+              <svg
+                class="dropdown-item-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.82,11.69,4.82,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"
+                />
+              </svg>
+              Cài đặt
+            </div>
+
+            <div class="dropdown-item" onclick="handleMenuClick('help')">
+              <svg
+                class="dropdown-item-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                />
+              </svg>
+              Trợ giúp
+              <svg
+                class="dropdown-arrow"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+              </svg>
+            </div>
+
+            <div class="dropdown-item" onclick="handleMenuClick('logout')">
+              <svg
+                class="dropdown-item-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"
+                />
+              </svg>
+              Đăng xuất
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-container" id="chatContainer">
+        <div class="welcome-screen" id="welcomeScreen">
+          <h1 class="welcome-title">Chào bạn! Tôi có thể giúp gì cho bạn?</h1>
+          <div class="suggestions">
+            <div
+              class="suggestion-card"
+              onclick="sendSuggestion('Giải thích khái niệm machine learning một cách đơn giản')"
+            >
+              <div class="suggestion-title">💡 Giải thích khái niệm</div>
+              <div class="suggestion-desc">
+                Machine learning là gì và hoạt động như thế nào?
+              </div>
+            </div>
+            <div
+              class="suggestion-card"
+              onclick="sendSuggestion('Viết một email chuyên nghiệp xin việc')"
+            >
+              <div class="suggestion-title">✍️ Viết email</div>
+              <div class="suggestion-desc">
+                Tạo email chuyên nghiệp để ứng tuyển công việc
+              </div>
+            </div>
+            <div
+              class="suggestion-card"
+              onclick="sendSuggestion('Đề xuất kế hoạch học tiếng Anh trong 3 tháng')"
+            >
+              <div class="suggestion-title">📚 Lên kế hoạch</div>
+              <div class="suggestion-desc">
+                Xây dựng lộ trình học tiếng Anh hiệu quả
+              </div>
+            </div>
+            <div
+              class="suggestion-card"
+              onclick="sendSuggestion('Giải thích cách nấu phở Việt Nam truyền thống')"
+            >
+              <div class="suggestion-title">🍜 Hướng dẫn nấu ăn</div>
+              <div class="suggestion-desc">
+                Cách nấu phở bò đúng chuẩn Việt Nam
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-area">
+        <div class="input-container">
+          <div class="input-wrapper">
+            <textarea
+              class="message-input"
+              id="messageInput"
+              placeholder="Nhập tin nhắn của bạn..."
+              rows="1"
+            ></textarea>
+            <button class="send-btn" id="sendBtn" disabled>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
